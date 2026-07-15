@@ -55,143 +55,148 @@ function Login() {
 
             toast.success("Welcome back");
             navigate("/dashboard");
-        } catch (error) {
+         } catch (error) {
+            console.log(
+                "Login response:",
+                error.response?.data
+            );
+
             toast.error(
                 error.response?.data?.message ||
                 "Unable to login. Please try again."
             );
         } finally {
-            setLoading(false);
-        }
-    };
+        setLoading(false);
+    }
+};
 
-    return (
-        <main className="auth-page">
-            <section className="auth-panel auth-intro">
-                <div className="brand">
+return (
+    <main className="auth-page">
+        <section className="auth-panel auth-intro">
+            <div className="brand">
+                <div className="brand-mark">T</div>
+                <span>TaskFlow</span>
+            </div>
+
+            <div className="intro-content">
+                <span className="eyebrow">Plan with clarity</span>
+
+                <h1>
+                    Keep your day
+                    <br />
+                    under control.
+                </h1>
+
+                <p>
+                    Sign in to review your tasks, update progress, and focus
+                    on the work that deserves your attention.
+                </p>
+
+                <div className="feature-list">
+                    <div>
+                        <span>01</span>
+                        <p>Your tasks remain private and protected</p>
+                    </div>
+
+                    <div>
+                        <span>02</span>
+                        <p>Track pending and completed work easily</p>
+                    </div>
+
+                    <div>
+                        <span>03</span>
+                        <p>Access your workspace from any device</p>
+                    </div>
+                </div>
+            </div>
+
+            <p className="intro-footer">
+                Built with React, Node.js, Express and MongoDB.
+            </p>
+        </section>
+
+        <section className="auth-panel auth-form-panel">
+            <div className="auth-form-container">
+                <div className="mobile-brand">
                     <div className="brand-mark">T</div>
                     <span>TaskFlow</span>
                 </div>
 
-                <div className="intro-content">
-                    <span className="eyebrow">Plan with clarity</span>
-
-                    <h1>
-                        Keep your day
-                        <br />
-                        under control.
-                    </h1>
-
-                    <p>
-                        Sign in to review your tasks, update progress, and focus
-                        on the work that deserves your attention.
-                    </p>
-
-                    <div className="feature-list">
-                        <div>
-                            <span>01</span>
-                            <p>Your tasks remain private and protected</p>
-                        </div>
-
-                        <div>
-                            <span>02</span>
-                            <p>Track pending and completed work easily</p>
-                        </div>
-
-                        <div>
-                            <span>03</span>
-                            <p>Access your workspace from any device</p>
-                        </div>
-                    </div>
+                <div className="form-heading">
+                    <span className="form-kicker">Welcome back</span>
+                    <h2>Sign in to TaskFlow</h2>
+                    <p>Enter your account details to continue.</p>
                 </div>
 
-                <p className="intro-footer">
-                    Built with React, Node.js, Express and MongoDB.
-                </p>
-            </section>
+                <form onSubmit={handleSubmit} className="auth-form">
+                    <div className="form-group">
+                        <label htmlFor="email">Email address</label>
 
-            <section className="auth-panel auth-form-panel">
-                <div className="auth-form-container">
-                    <div className="mobile-brand">
-                        <div className="brand-mark">T</div>
-                        <span>TaskFlow</span>
+                        <input
+                            id="email"
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            placeholder="ravi@example.com"
+                            autoComplete="email"
+                        />
                     </div>
 
-                    <div className="form-heading">
-                        <span className="form-kicker">Welcome back</span>
-                        <h2>Sign in to TaskFlow</h2>
-                        <p>Enter your account details to continue.</p>
-                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password">Password</label>
 
-                    <form onSubmit={handleSubmit} className="auth-form">
-                        <div className="form-group">
-                            <label htmlFor="email">Email address</label>
-
+                        <div className="password-field">
                             <input
-                                id="email"
-                                type="email"
-                                name="email"
-                                value={formData.email}
+                                id="password"
+                                type={showPassword ? "text" : "password"}
+                                name="password"
+                                value={formData.password}
                                 onChange={handleChange}
-                                placeholder="ravi@example.com"
-                                autoComplete="email"
+                                placeholder="Enter your password"
+                                autoComplete="current-password"
                             />
+
+                            <button
+                                type="button"
+                                className="password-toggle"
+                                onClick={() =>
+                                    setShowPassword((previous) => !previous)
+                                }
+                                aria-label={
+                                    showPassword
+                                        ? "Hide password"
+                                        : "Show password"
+                                }
+                            >
+                                {showPassword ? (
+                                    <EyeOff size={18} />
+                                ) : (
+                                    <Eye size={18} />
+                                )}
+                            </button>
                         </div>
+                    </div>
 
-                        <div className="form-group">
-                            <label htmlFor="password">Password</label>
+                    <button
+                        type="submit"
+                        className="primary-button"
+                        disabled={loading}
+                    >
+                        <LogIn size={18} />
 
-                            <div className="password-field">
-                                <input
-                                    id="password"
-                                    type={showPassword ? "text" : "password"}
-                                    name="password"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    placeholder="Enter your password"
-                                    autoComplete="current-password"
-                                />
+                        {loading ? "Signing in..." : "Sign in"}
+                    </button>
+                </form>
 
-                                <button
-                                    type="button"
-                                    className="password-toggle"
-                                    onClick={() =>
-                                        setShowPassword((previous) => !previous)
-                                    }
-                                    aria-label={
-                                        showPassword
-                                            ? "Hide password"
-                                            : "Show password"
-                                    }
-                                >
-                                    {showPassword ? (
-                                        <EyeOff size={18} />
-                                    ) : (
-                                        <Eye size={18} />
-                                    )}
-                                </button>
-                            </div>
-                        </div>
-
-                        <button
-                            type="submit"
-                            className="primary-button"
-                            disabled={loading}
-                        >
-                            <LogIn size={18} />
-
-                            {loading ? "Signing in..." : "Sign in"}
-                        </button>
-                    </form>
-
-                    <p className="auth-switch">
-                        Don&apos;t have an account?{" "}
-                        <Link to="/register">Create account</Link>
-                    </p>
-                </div>
-            </section>
-        </main>
-    );
+                <p className="auth-switch">
+                    Don&apos;t have an account?{" "}
+                    <Link to="/register">Create account</Link>
+                </p>
+            </div>
+        </section>
+    </main>
+);
 }
 
 export default Login;
