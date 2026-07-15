@@ -67,3 +67,21 @@ TaskManagerApp/
 │   └── package.json
 │
 └── README.md
+
+## Environment Variables
+
+Copy the example environment files before running the project.
+
+### Backend
+
+```bash
+cp Backend/.env.example Backend/.env
+```
+
+### Frontend
+
+```bash
+cp Frontend/.env.example Frontend/.env
+```
+
+After copying, update the values according to your local setup.
