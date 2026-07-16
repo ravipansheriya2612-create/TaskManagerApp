@@ -24,11 +24,25 @@ app.use(
                 return callback(null, true);
             }
 
+            console.error("Blocked CORS origin:", origin);
+
             return callback(
                 new Error(`CORS blocked origin: ${origin}`)
             );
         },
         credentials: true,
+        methods: [
+            "GET",
+            "POST",
+            "PUT",
+            "PATCH",
+            "DELETE",
+            "OPTIONS",
+        ],
+        allowedHeaders: [
+            "Content-Type",
+            "Authorization",
+        ],
     })
 );
 
@@ -58,7 +72,8 @@ app.use((error, req, res, next) => {
     console.error(error.message);
 
     res.status(500).json({
-        message: error.message || "Internal server error",
+        message:
+            error.message || "Internal server error",
     });
 });
 
@@ -66,5 +81,7 @@ const PORT = process.env.PORT || 5000;
 const HOST = "0.0.0.0";
 
 app.listen(PORT, HOST, () => {
-    console.log(`Server running on http://${HOST}:${PORT}`);
+    console.log(
+        `Server running on http://${HOST}:${PORT}`
+    );
 });
